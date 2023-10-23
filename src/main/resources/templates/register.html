@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/css/style.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="author" content="Lorenzo Di Folco">
+    <meta name="description" content="Applicazione Web">
+    <title>Register</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/styles/images/logo.png}" height="45" alt="Logo" loading="lazy"/>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/ticket/new}">Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/board}">Board</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" aria-current="page" th:href="@{/watch}">Watch</a>
+                </li>
+            </ul>
+        </div>
+        <div class="text-end">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link active border-bottom" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:text="${#authentication.name}">User</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<br/><br/><br/>
+<div class="container">
+    <div class="row col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="text-center">Registration</h2>
+            </div>
+            <div class="card-body">
+                <form id="signup" method="post" name="module" role="form" th:action="@{/register}" th:object="${user}">
+                    <div class="form-group mb-3 form-field">
+                        <label class="form-label" for="firstName">First Name</label>
+                        <input class="form-control" id="firstName" name="firstName" placeholder="Enter first name"
+                               th:field="*{firstname}" type="text"/>
+                        <small></small>
+                    </div>
+                    <div class="form-group mb-3 form-field">
+                        <label class="form-label" for="lastName">Last Name</label>
+                        <input class="form-control" id="lastName" name="lastName" placeholder="Enter last name"
+                               th:field="*{lastname}" type="text"/>
+                        <small></small>
+                    </div>
+
+                    <div class="form-group mb-3 form-field">
+                        <label class="form-label" for="username">Username</label>
+                        <input class="form-control" id="username" name="username" placeholder="Enter username"
+                               th:field="*{username}" type="text"/>
+                        <small></small>
+                    </div>
+
+                    <div class="form-group mb-3 form-field">
+                        <label class="form-label" for="password">Password</label>
+                        <input class="form-control" id="password" name="password" placeholder="Enter password"
+                               th:field="*{password}" type="password"/>
+                        <small></small>
+                    </div>
+                    <div class="form-group mb-3 form-field">
+                        <label class="form-label" for="confirm">Confirm Password</label>
+                        <input class="form-control" id="confirm" name="confirm" placeholder="Confirm password"
+                               type="password"/>
+                        <small></small>
+                    </div>
+                    <div class="form-group">
+                        <div id="button"></div>
+                        <span>Already registered? <a th:href="@{/login}">Login here</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" th:src="@{/js/registerValidation.js}"></script>
+
+<div th:replace="master :: footer"></div>
+
+</body>
+</html>

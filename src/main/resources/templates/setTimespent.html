@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <link th:href="@{/webjars/bootstrap/5.2.2/css/bootstrap.min.css}" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="author" content="Lorenzo Di Folco">
+    <meta name="description" content="Applicazione Web">
+    <title>Form</title>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/styles/images/logo.png}" height="45" alt="Logo" loading="lazy"/>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/ticket/new}">Form</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/board}">Board</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" aria-current="page" th:href="@{/watch}">Watch</a>
+                </li>
+            </ul>
+        </div>
+        <div class="text-end">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" href="/login">Login</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" href="/register">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:text="${#authentication.name}">User</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" href="/logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="row ">
+    <div class="col-lg-7 mx-auto">
+        <div class="card mt-2 mx-auto p-4 bg-light">
+            <div class="card-body bg-light">
+                <div class="container">
+                    <form th:action="@{'/ticket/' + ${ticket.id} + '/setTimeSpent'}" th:object="${ticket}"
+                          method="post">
+                        <div class="controls">
+                            <div class="card">
+                                <div class="invoice p-5">
+                                    <h5 class="text-center" th:text="${ticket.title}"></h5>
+                                    <span class="font-weight-bold d-block mt-4 text-center"
+                                          th:text="${ticket.type}"></span>
+                                    <span th:text="${ticket.description}" class="text"></span>
+                                    <div class="payment border-top mt-3 mb-3 border-bottom table-responsive">
+                                        <table class="table table-borderless">
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <div class="py-2">
+                                                        <span class="d-block text-muted">Date</span>
+                                                        <span th:text="${ticket.date}"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="py-2">
+                                                        <span class="d-block text-muted">Author</span>
+                                                        <span th:text="${ticket.author.username}"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="py-2">
+                                                        <span class="d-block text-muted">State</span>
+                                                        <span th:text="${ticket.state}"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="py-2">
+                                                        <span class="d-block text-muted">Attachment</span>
+                                                        <span th:text="${ticket.attachment}"></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div class="py-2">
+                                                        <span class="d-block text-muted">Due date</span>
+                                                        <span th:text="${ticket.due_date}"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="py-2">
+                                                        <span class="d-block text-muted">Assignee</span>
+                                                        <span th:text="${ticket.assignee.username}"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="py-2">
+                                                        <span class="d-block text-muted">Estimate</span>
+                                                        <span th:text="${ticket.estimate}"></span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="form-group">
+                                                        <label for="time_spent" class="form-label">Time spent</label>
+                                                        <input class="form-control" type="number" id="time_spent" name="time_spent"
+                                                               th:field="${ticket.time_spent}" placeholder="0.0">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 text-center mt-2">
+                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:replace="master :: footer"></div>
+</body>
+</html>

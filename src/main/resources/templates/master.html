@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<body>
+<nav th:fragment="indexNav" class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/styles/images/logo.png}" height="45" alt="Logo" loading="lazy"/>
+        </a>
+        <div class="collapse navbar-collapse" id="indexNavbar">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link active border-bottom" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/ticket/new}">Form</a>
+                </li>
+            </ul>
+        </div>
+        <div class="text-end">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="search-input" name="search-input">
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:text="${#authentication.name}">User</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<nav th:fragment="nav" class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/}">
+            <img th:src="@{/styles/images/logo.png}" height="45" alt="Logo" loading="lazy"/>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" th:href="@{/ticket/new}">Form</a>
+                </li>
+            </ul>
+        </div>
+        <div class="text-end">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link active border-bottom" th:href="@{/login}">Login</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAnonymous()">
+                    <a class="nav-link" th:href="@{/register}">Register</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:text="${#authentication.name}">User</a>
+                </li>
+                <li class="nav-item" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer" class="bg-black text-center text-white fixed-bottom">
+    <div class="bg-light py-2">
+        <div class="container text-center">
+            <p class="text-muted mb-0 py-2">Copyleft CC-by 2022 by Lorenzo Di Folco</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+.form-field.error input {
+    border: 2px solid red;
+}
+
+.form-field.success input {
+    border: 2px solid lightgreen;
+}
+
+.form-field small {
+    color: red;
+}
